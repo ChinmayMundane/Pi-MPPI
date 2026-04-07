@@ -1,5 +1,20 @@
 # π-MPPI: A Projection-based Model Predictive Path Integral Scheme for Smooth Optimal Control of Fixed-Wing Aerial Vehicles
 
+## 🆕 New Feature: Non-Convex State Constraint Projection
+
+This repository now includes an enhanced version of Pi-MPPI with **hard state constraint enforcement** through non-convex optimization:
+- ✅ Hard obstacle avoidance constraints (non-convex, via SCP)
+- ✅ State bounds (box constraints on x, y, z positions)
+- ✅ Terrain following constraints
+- ✅ Unified state-control projection via ADMM
+
+**Key Benefits:**
+- Guaranteed constraint satisfaction (within numerical tolerance)
+- More robust obstacle avoidance
+- Compatible with existing Pi-MPPI interface
+
+📖 **[Read the full documentation](STATE_PROJECTION_README.md)**
+
 ## Getting Started
 1. Clone the repository
 ```
@@ -8,6 +23,10 @@ git clone https://github.com/edvinmandrejev/Pi-MPPI.git
 2. Install dependencies
 ```
 pip install -r requirements.txt
+```
+3. Run tests to validate state projection (optional)
+```
+python test_state_projection.py
 ```
 ## Obstacle Avoidance Scenario
 1. Obstacle avoidanance scenario for baseline MPPIwSGF and π-MPPI can be run using [Obstacle avoidance (MPPIwSGF and π-MPPI)](https://github.com/edvinmandrejev/Pi-MPPI/blob/main/Obstacle%20Avoidance/Comparison%3A%20Pi-MPPI%20and%20Baseline-MPPIwSGF/obstacle_avoidance.ipynb).
