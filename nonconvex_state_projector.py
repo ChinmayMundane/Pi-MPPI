@@ -241,7 +241,7 @@ class NonConvexStateProjector():
         return x_proj, y_proj, z_proj
     
     @partial(jit, static_argnums=(0,))
-    def project_terrain_constraint(self, x, y, z, terrain_height_fn, clearance=5.0):
+    def project_terrain_constraint(self, x, y, z, terrain_height, clearance=5.0):
         """
         Project z coordinates to satisfy terrain following constraint.
         
@@ -250,15 +250,12 @@ class NonConvexStateProjector():
         Args:
             x, y: Horizontal positions (num_batch, num_timesteps)
             z: Vertical positions (num_batch, num_timesteps)
-            terrain_height_fn: Function that returns terrain height at (x, y)
+            terrain_height: Pre-computed terrain height at (x, y) positions (num_batch, num_timesteps)
             clearance: Minimum clearance above terrain
             
         Returns:
             z_proj: Projected z satisfying terrain constraint
         """
-        # Get terrain height at each (x, y) position
-        terrain_height = terrain_height_fn(x, y)
-        
         # Ensure z is at least clearance above terrain
         z_min_required = terrain_height + clearance
         z_proj = jnp.maximum(z, z_min_required)
